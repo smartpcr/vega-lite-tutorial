@@ -1,4 +1,3 @@
-import { count } from "console";
 import React from "react";
 import { VegaLite, VisualizationSpec } from "react-vega";
 import { BAR, LINE, TICK } from "vega-lite/build/src/mark";
@@ -15,6 +14,7 @@ export class Weather extends React.Component<IWeatherProps> {
             {this.getBarChart()}
             {this.getBarChart2()}
             {this.getBarChart3()}
+            {this.getBarChart4()}
             {this.getLineChart()}
             {this.getLineChart2()}
             {this.getLineChart3()}
@@ -84,6 +84,21 @@ export class Weather extends React.Component<IWeatherProps> {
                     },
                     title: "weather type"
                 }
+            },
+            data: { url: this.props.dataUrl }
+        };
+        
+        return <VegaLite spec={spec} actions={false} />;
+    }
+
+    private readonly getBarChart4 = (): JSX.Element => {
+        const spec: VisualizationSpec = {
+            width: 400,
+            height: 300,
+            mark: BAR,
+            encoding: {
+                x: { timeUnit: "month", field: "date", type: "ordinal", axis: {labelAlign: "left", labelExpr: "datum.label[0]"} },
+                y: { aggregate: "mean", field: "precipitation", type: "quantitative" }
             },
             data: { url: this.props.dataUrl }
         };

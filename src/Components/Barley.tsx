@@ -1,8 +1,6 @@
-import { count } from "console";
 import React from "react";
 import { VegaLite, VisualizationSpec } from "react-vega";
-import { BAR, LINE, TICK } from "vega-lite/build/src/mark";
-import { Type } from "vega-lite/build/src/type";
+import { BAR } from "vega-lite/build/src/mark";
 
 export interface IBarleyProps {
     dataUrl: string;
@@ -17,6 +15,7 @@ export class Barley extends React.Component<IBarleyProps> {
 
     private readonly getBarChart = (): JSX.Element => {
         const spec: VisualizationSpec = {
+            data: { url: this.props.dataUrl },
             width: 400,
             height: { step: 17 },
             mark: BAR,
@@ -24,9 +23,21 @@ export class Barley extends React.Component<IBarleyProps> {
                 x: {aggregate: "sum", field: "yield"},
                 y: { field: "variety" },
                 color: {field: "site"}
-                
             },
-            data: { url: this.props.dataUrl }
+            layer: [
+                { mark: BAR },
+                {
+                    mark: {
+                        type: "text",
+                        align: "left",
+                        baseline: "middle",
+                        dx: 3
+                    },
+                    encoding: {
+                        text: {field: "yield", type: "quantitative"}
+                    }
+                }
+            ]
         };
         
         return <VegaLite spec={spec} actions={false} />;

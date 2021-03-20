@@ -1,8 +1,6 @@
-import { count } from "console";
 import React from "react";
 import { VegaLite, VisualizationSpec } from "react-vega";
-import { BAR, LINE, TICK } from "vega-lite/build/src/mark";
-import { Type } from "vega-lite/build/src/type";
+import { BAR } from "vega-lite/build/src/mark";
 
 export interface IPopulationProps {
     dataUrl: string;
