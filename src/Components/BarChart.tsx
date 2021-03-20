@@ -1,5 +1,6 @@
 import React from "react";
 import { VegaLite, VisualizationSpec } from "react-vega";
+import { STROKEWIDTH } from "vega-lite/build/src/channel";
 import { BAR } from "vega-lite/build/src/mark";
 import { Type } from "vega-lite/build/src/type";
 
@@ -21,14 +22,51 @@ export const BarChart: React.FunctionComponent = (): JSX.Element => {
     const spec: VisualizationSpec = {
         width: 400,
         height: 200,
+        data: { name: "table" },
         encoding: {
             x: { field: "a", type: Type.ordinal },
             y: { field: "b", type: Type.quantitative },
+            fillOpacity: {
+                condition: { param: "select", value: 1 },
+                value: 0.3
+            },
+            strokeWidth: {
+                condition: [
+                    {
+                      param: "select",
+                      empty: false,
+                      value: 2
+                    },
+                    {
+                      param: "highlight",
+                      empty: false,
+                      value: 5
+                    }
+                  ],
+                value: 0
+            }
         },
-        data: { name: "table" }, // note: vega-lite data attribute is a plain object instead of an array
+        
         layer: [
             {
-                mark: {type: BAR, cornerRadiusTopLeft: 5, cornerRadiusTopRight: 5},
+                params: [
+                    {
+                        name: "highlight",
+                        select: {type: "point", on: "mouseover"}
+                    },
+                    {
+                        name: "select",
+                        select: "point"
+                    }
+                ],
+                mark: {
+                    type: BAR,
+                    cornerRadiusTopLeft: 5,
+                    cornerRadiusTopRight: 5,
+                    fill: "#4c78a8",
+                    stroke: "black",
+                    cursor: "pointer"
+                },
             },
             {
                 mark: {
@@ -56,13 +94,48 @@ export const BarChart: React.FunctionComponent = (): JSX.Element => {
     const spec2: VisualizationSpec = {
         width: 400,
         height: 200,
-        mark: BAR,
+        mark: {
+            type: BAR,
+            fill: "#4c78a8",
+            stroke: "black",
+            cursor: "pointer"
+        },
         encoding: {
             y: { field: "task", type: Type.ordinal },
             x: { field: "start", type: Type.quantitative },
             x2: { field: "end", type: Type.quantitative },
+            fillOpacity: {
+                condition: { param: "select", value: 1 },
+                value: 0.3
+            },
+            strokeWidth: {
+                condition: [
+                    {
+                      param: "select",
+                      empty: false,
+                      value: 2
+                    },
+                    {
+                      param: "highlight",
+                      empty: false,
+                      value: 5
+                    }
+                  ],
+                value: 0
+            }
         },
         data: data2,
+        params: [
+            {
+                name: "highlight",
+                select: {type: "point", on: "mouseover"}
+            },
+            {
+                name: "select",
+                select: "point"
+            }
+        ],
+        
     };
 
     const data3 = {

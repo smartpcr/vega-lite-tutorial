@@ -19,13 +19,29 @@ export class Cars extends React.Component<ICarsProps> {
 
     private readonly getScatterPlot = (): JSX.Element => {
         const spec: VisualizationSpec = {
-            data: { url: this.props.dataUrl },
             width: 400,
             height: 300,
+            data: { url: this.props.dataUrl },
+            transform: [{
+                calculate: "'https://www.google.com/search?q=' + datum.Name",
+                as: "url"
+            }],
+            params: [{
+                name: "Origin",
+                select: { type: "point", fields: ["Origin"] },
+                bind: "legend"
+            }],
             mark: POINT,
             encoding: {
                 x: { field: "Horsepower", type: "quantitative" },
                 y: { field: "Miles_per_Gallon", type: "quantitative" },
+                color: { field: "Origin", type: "nominal" },
+                tooltip: { field: "Name", type: "nominal" },
+                href: { field: "url", type: "nominal" },
+                opacity: {
+                    condition: { param: "Origin", value: 1 },
+                    value: 0.2
+                }
             }
         };
         

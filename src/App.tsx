@@ -16,6 +16,7 @@ import { Unemployment } from "./Components/Maps/Unemployment";
 import { ZipCodes } from "./Components/Maps/ZipCodes";
 import { Airports } from "./Components/Maps/Airports";
 import { States } from "./Components/Maps/States";
+import { World } from "./Components/Maps/World";
 
 function App() {
     return (
@@ -33,10 +34,11 @@ function App() {
                 <Income dataUrl="data/gapminder-health-income.csv" />
                 <Disasters dataUrl="data/disasters.csv" />
                 <Stocks dataUrl="data/stocks.csv" />
-                <Unemployment dataUrl="data/unemployment.tsv" geoJsonUrl="data/us-10m.json" />
+                <Unemployment dataUrl="data/unemployment.tsv" industryUrl="data/unemployment-across-industries.json" geoJsonUrl="data/us-10m.json" />
                 <ZipCodes dataUrl="data/zipcodes.csv" />
                 <Airports dataUrl="data/airports.csv" geoJsonUrl="data/us-10m.json" />
                 <States dataUrl="data/us-state-capitals.json" geoJsonUrl="data/us-10m.json" />
+                <World geoJsonUrl="data/world-110m.json" />
             </header>
         </div>
     );
