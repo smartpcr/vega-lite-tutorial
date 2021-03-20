@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { BarChart } from "./Components/BarChart";
 import { Weather } from "./Components/Weather";
@@ -11,16 +10,13 @@ import { Histogram } from "./Components/Histogram";
 import { AreaChart } from "./Components/AreaChart";
 import { Cars } from "./Components/Cars";
 import { Income } from "./Components/Income";
+import { Disasters } from "./Components/Disasters";
+import { Stocks } from "./Components/Stocks";
 
 function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-
                 <BarChart />
                 <Weather dataUrl="data/seattle-weather.csv" />
                 <Population dataUrl="https://vega.github.io/vega-lite/data/population.json" />
@@ -31,6 +27,8 @@ function App() {
                 <AreaChart dataUrl="data/penguins.json" />
                 <Cars dataUrl="data/cars.json" />
                 <Income dataUrl="data/gapminder-health-income.csv" />
+                <Disasters dataUrl="data/disasters.csv" />
+                <Stocks dataUrl="data/stocks.csv" />
             </header>
         </div>
     );
