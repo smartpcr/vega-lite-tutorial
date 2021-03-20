@@ -3,7 +3,7 @@ import { VegaLite } from "react-vega";
 import {BAR} from 'vega-lite/build/src/mark';
 import {Type} from 'vega-lite/build/src/type';
 
-export const BarChart: React.FunctionComponent = (): JSX.Element => {
+export const Cloropleth: React.FunctionComponent = (): JSX.Element => {
     const barData = {
         table: [
             { a: 'A', b: 28 },
