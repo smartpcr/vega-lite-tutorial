@@ -10,13 +10,13 @@ export class Stocks extends React.Component<IStocksProps> {
     public render(): JSX.Element {
         return (
             <div>
-                {this.getLineChart()}
+                {this.getAreaChart()}
                 {this.getLineChart2()}
             </div>
         );
     }
 
-    private readonly getLineChart = (): JSX.Element => {
+    private readonly getAreaChart = (): JSX.Element => {
         const spec: VisualizationSpec = {
             data: { url: this.props.dataUrl },
             transform: [
@@ -29,13 +29,12 @@ export class Stocks extends React.Component<IStocksProps> {
                         timeUnit: "year",
                         range: [2006, 2009],
                     },
-                },
+                }
             ],
             params: [
                 {
                     name: "view",
-                    select: "interval",
-                    bind: "scales",
+                    select: {type: "interval", encodings: ["x"]}
                 },
             ],
             width: 800,

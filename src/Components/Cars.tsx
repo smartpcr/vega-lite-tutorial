@@ -27,7 +27,7 @@ export class Cars extends React.Component<ICarsProps> {
                 as: "url"
             }],
             params: [{
-                name: "Origin",
+                name: "CarOrigins",
                 select: { type: "point", fields: ["Origin"] },
                 bind: "legend"
             }],
@@ -39,7 +39,7 @@ export class Cars extends React.Component<ICarsProps> {
                 tooltip: { field: "Name", type: "nominal" },
                 href: { field: "url", type: "nominal" },
                 opacity: {
-                    condition: { param: "Origin", value: 1 },
+                    condition: { param: "CarOrigins", value: 1 },
                     value: 0.2
                 }
             }
@@ -50,14 +50,32 @@ export class Cars extends React.Component<ICarsProps> {
 
     private readonly getBubblePlot = (): JSX.Element => {
         const spec: VisualizationSpec = {
-            data: { url: this.props.dataUrl },
             width: 400,
             height: 300,
+            data: { url: this.props.dataUrl },
+            params: [
+                {
+                    name: "brush",
+                    select: { type: "interval" },
+                },
+                {
+                    name: "paint",
+                    select: {type: "point", on: "mouseover", nearest: true}
+                }
+            ],
             mark: POINT,
             encoding: {
                 x: { field: "Horsepower", type: "quantitative" },
                 y: { field: "Miles_per_Gallon", type: "quantitative" },
-                size: {field: "Acceleration", type: "quantitative"}
+                color: {
+                    condition: { param: "brush", field: "Cylinders", type: "ordinal" },
+                    value: "grey"
+                },
+                size: {
+                    condition: { param: "paint", value: 300 },
+                    value: 50
+                },
+                tooltip: {field: "Name", type: "nominal"}
             }
         };
         
@@ -66,14 +84,20 @@ export class Cars extends React.Component<ICarsProps> {
 
     private readonly getFilledCircles = (): JSX.Element => {
         const spec: VisualizationSpec = {
-            data: { url: this.props.dataUrl },
             width: 400,
             height: 300,
+            data: { url: this.props.dataUrl },
+            params: [{
+                name: "grid",
+                select: { type: "interval" },
+                bind: "scales"
+            }],
             mark: CIRCLE,
             encoding: {
                 x: { field: "Horsepower", type: "quantitative" },
                 y: { field: "Miles_per_Gallon", type: "quantitative" },
-                size: {field: "Acceleration", type: "quantitative"}
+                size: { field: "Acceleration", type: "quantitative" },
+                tooltip: {field: "Name", type: "nominal"}
             }
         };
         
